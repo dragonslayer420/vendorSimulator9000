@@ -95,3 +95,4 @@ buySnickersButton.addEventListener("click", function() {
     });
 
 });
+

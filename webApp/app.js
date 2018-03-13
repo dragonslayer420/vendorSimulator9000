@@ -5,6 +5,9 @@ app.set("view engine", "ejs");
 
 app.use(express.static(__dirname + "/public"));
 
+
+var apiUrl = "https://ropsten.infura.io/Prmmb8q9E0i0tPw8TDfV";
+
 app.get("/", function(req, res) {
     res.render("index");
 });
