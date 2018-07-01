@@ -1,24 +1,72 @@
 pragma solidity ^0.4.4;
 
-contract vs9000Snicker {
+contract vs9000 {
 
-    uint public counter;
+    uint public counterTwix;
+    uint public counterSnickers;
+    uint public counterCocacola;
+    uint public counterSprite;
 
-    function vs9000Snicker(uint _counter) {
-        counter = _counter;
+    event eventBuy(address indexed _from, int indexed _machineId, int _product);
+
+    function vs9000Snicker() {
+        counterTwix = 0;
+        counterSnickers = 0;
+        counterCocacola = 0;
+        counterSprite = 0;
     }
 
-    function buySnickers() returns (bool) {
-        counter = counter + 1;
-        return true;
+    function buy(int product, int machineId) {
+
+        //twix
+        if(product == 1) {
+            counterTwix += 1;
+        }
+
+        //snickers
+        if(product == 2) {
+            counterSnickers += 1;
+        }
+
+        //cola
+        if(product == 3) {
+            counterCocacola += 1;
+        }
+
+        //sprite
+        if(product == 4) {
+            counterSprite += 1;
+        }
+
+        eventBuy(msg.sender, machineId, product);
     }
 
-    function getCount() returns (uint) {
-        return counter;
+    function resetCounter() {
+        this.counterTwix = 0;
+        this.counterSnickers = 0;
+        this.counterCocacola = 0;
+        this.counterSprite = 0;
     }
 
-    function resetCounter() returns (bool) {
-        counter = 0;
-        return true;
+    function getCount(int product) returns (uint) {
+        if(product == 1) {
+            return counterTwix;
+        }
+
+        //snickers
+        if(product == 2) {
+            return counterSnickers;
+        }
+
+        //cola
+        if(product == 3) {
+            return counterCocacola;
+        }
+
+        //sprite
+        if(product == 4) {
+            return counterSprite;
+        }
     }
+
 }
