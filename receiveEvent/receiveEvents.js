@@ -4,7 +4,8 @@ web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/Prmmb
 
 console.log(web3.currentProvider);
 
-var addr = "0x047747BE8A6B14886aBb2Ee235EF38821e52BAA2";
+var addr = "0xf663F44B4d64A462288501b1Ab5a7Ab023013402";
+
 
 console.log('Events by Address: ' + addr);
 
@@ -168,7 +169,7 @@ var contract = new web3.eth.Contract(abi, addr);
 console.log("################################");
 
 // in produktion muss dieser wert persistiert werden, sonst problem beu script neustart
-var totCounter = 0;
+var totCounter = 10;
 
 var exec = require('child_process').exec;
 
@@ -191,7 +192,7 @@ async function poll() {
                         var _machineId = events[i].returnValues["_machineId"];
                         var _totalCounter = events[i].returnValues["_totalCounter"];
 
-                        // console.log("_product: " + _product);
+                        console.log("PI: _product: " + _product);
                         // console.log("_machineId: " + _machineId);
                         // console.log("_totalCounter: " + _totalCounter);
 
@@ -200,20 +201,21 @@ async function poll() {
                         if(_product == 3) _product = 'c';
                         if(_product == 4) _product = 'd';
 
-                        var execString = "\"shellExec.bat\" " + _product + " " + _machineId;
+                        var execString = "/home/pi/Desktop/v09/vendorSimulator9000/receiveEvent/Test 192.168.1.2 1000 "+ _machineId + " " + _product;
 
-                        console.log(execString);
+                        console.log("PI: " + execString);
 
                         // https://nodejs.org/api/child_process.html#child_process_child_process_execfile_file_args_options_callback
                         exec(execString, function (error, stdOut, stdErr) {
+                            //console.log(error);
                             console.log(stdOut);
                         });
                     }
                 }
                 totCounter = events.length;
             });
-        console.log("totalCounter:" + totCounter);
-        console.log("before await sleep");
+        console.log("PI: totalCounter:" + totCounter);
+        //console.log("before await sleep");
 
         await sleep(2000);
     }
